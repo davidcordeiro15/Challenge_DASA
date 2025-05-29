@@ -9,9 +9,7 @@ import com.jme3.material.Material;
 import com.jme3.math.*;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Quad;
 import com.jme3.ui.Picture;
-
 import java.io.File;
 
 public class GLBFileViewer extends SimpleApplication {
@@ -160,8 +158,5 @@ public class GLBFileViewer extends SimpleApplication {
         cam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
     }
 
-    @Override
-    public void simpleRender(RenderManager rm) {
-        // render opcional
-    }
+
 }
