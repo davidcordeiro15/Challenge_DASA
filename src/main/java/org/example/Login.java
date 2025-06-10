@@ -12,7 +12,7 @@ public class Login extends JFrame {
 
     public Login() {
         setTitle("Bem-vindo!");
-        setSize(400, 350);
+        setSize(400, 500); // aumentada para comportar mais campos
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -64,9 +64,7 @@ public class Login extends JFrame {
             usuario.setSenha(new String(campoSenha.getPassword()));
 
             JOptionPane.showMessageDialog(this, "Login com email: " + usuario.getEmail());
-            // Fazer a lógica de true e false
-            // Colocar as pastas organizadas
-            // Mudar os nomes
+
             FileSelector file = new FileSelector();
             file.showDisplay();
             dispose();
@@ -95,6 +93,9 @@ public class Login extends JFrame {
         JTextField campoNome = new JTextField();
         JTextField campoEmail = new JTextField();
         JPasswordField campoSenha = new JPasswordField();
+        JTextField campoSetor = new JTextField();
+        JTextField campoNomeLaboratorio = new JTextField();
+        JTextField campoEnderecoLaboratorio = new JTextField();
 
         JButton botaoCadastrar = new JButton("Cadastrar");
         JButton botaoVoltar = new JButton("Voltar");
@@ -103,6 +104,7 @@ public class Login extends JFrame {
             usuario.setNome(campoNome.getText());
             usuario.setEmail(campoEmail.getText());
             usuario.setSenha(new String(campoSenha.getPassword()));
+            usuario.setCargo(campoSetor.getText(), campoNomeLaboratorio.getText(), campoEnderecoLaboratorio.getText());
 
             JOptionPane.showMessageDialog(this, "Usuário cadastrado: " + usuario.getNome());
         });
@@ -117,6 +119,15 @@ public class Login extends JFrame {
         painel.add(Box.createVerticalStrut(10));
         painel.add(new JLabel("Senha:"));
         painel.add(campoSenha);
+        painel.add(Box.createVerticalStrut(10));
+        painel.add(new JLabel("Setor:"));
+        painel.add(campoSetor);
+        painel.add(Box.createVerticalStrut(10));
+        painel.add(new JLabel("Nome do Laboratório:"));
+        painel.add(campoNomeLaboratorio);
+        painel.add(Box.createVerticalStrut(10));
+        painel.add(new JLabel("Endereço do Laboratório:"));
+        painel.add(campoEnderecoLaboratorio);
         painel.add(Box.createVerticalStrut(15));
         painel.add(botaoCadastrar);
         painel.add(Box.createVerticalStrut(10));

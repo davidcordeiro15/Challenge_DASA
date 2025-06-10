@@ -4,11 +4,10 @@ import java.util.*;
 public class Usuario {
     private Long id;
     private String nome;
-    private String login;
     private String senha;
     private Funcionario cargo;
     private String email;
-    private List<Peca> pecas; // Peças que foram analizadas por esse funcionário
+
 
     public Usuario() {}
     public Usuario(String nome, String email, String senha) {
@@ -40,6 +39,15 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Funcionario getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String setor, String nomeLaboratorio, String enderecoLaboratorio) {
+        Laboratorio lab = new Laboratorio(nomeLaboratorio, enderecoLaboratorio, 20); // Para evitar muita complexidade no início do projeto optamos por colocar um número fixo de funcionários
+        Funcionario funcionario = new Funcionario(setor, lab);
     }
     /* Teste
     * import com.jme3.app.SimpleApplication;
