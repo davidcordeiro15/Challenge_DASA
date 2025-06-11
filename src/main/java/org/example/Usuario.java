@@ -49,18 +49,5 @@ public class Usuario {
         Laboratorio lab = new Laboratorio(nomeLaboratorio, enderecoLaboratorio, 20); // Para evitar muita complexidade no início do projeto optamos por colocar um número fixo de funcionários
         Funcionario funcionario = new Funcionario(setor, lab);
     }
-    /* Teste
-    * import com.jme3.app.SimpleApplication;
 
-public class TesteJME extends SimpleApplication {
-    public static void main(String[] args) {
-        new TesteJME().start();
-    }
-
-    @Override
-    public void simpleInitApp() {
-        System.out.println("jMonkeyEngine funcionando!");
-    }
-}
-*/
 }

@@ -2,17 +2,22 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class Login extends JFrame {
 
     private Usuario usuario = new Usuario();
+    private List<Usuario> usuariosCadastrados = new ArrayList<>();
 
     private CardLayout cardLayout;
     private JPanel painelPrincipal;
 
+    // Função para fazer as configurações iniciais das telas
     public Login() {
-        setTitle("Bem-vindo!");
-        setSize(400, 500); // aumentada para comportar mais campos
+        setTitle("BioMeasure");
+        setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -27,27 +32,52 @@ public class Login extends JFrame {
         setVisible(true);
     }
 
+    // Cria a primeira tela com os botões de cadastro ou login
     private JPanel criarTelaInicial() {
         JPanel painel = new JPanel(new BorderLayout());
-        JLabel titulo = new JLabel("Bem-vindo!", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 22));
-        painel.add(titulo, BorderLayout.NORTH);
 
-        JPanel botoes = new JPanel(new FlowLayout());
+        JPanel painelTitulo = new JPanel();
+        painelTitulo.setLayout(new BoxLayout(painelTitulo, BoxLayout.Y_AXIS));
+
+        JLabel titulo = new JLabel("Bem-vindo ao BioMeasure", JLabel.CENTER);
+        JLabel texto = new JLabel("Aqui sua análise é mais precisa", JLabel.CENTER);
+
+        titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        texto.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        titulo.setFont(new Font("Arial", Font.BOLD, 22));
+        texto.setFont(new Font("Arial", Font.PLAIN, 16));
+
+        painelTitulo.add(Box.createVerticalStrut(30));
+        painelTitulo.add(titulo);
+        painelTitulo.add(Box.createVerticalStrut(10));
+        painelTitulo.add(texto);
+        painelTitulo.add(Box.createVerticalStrut(30));
+
+        painel.add(painelTitulo, BorderLayout.NORTH);
+
+        JPanel botoes = new JPanel();
+        botoes.setLayout(new BoxLayout(botoes, BoxLayout.Y_AXIS));
 
         JButton btnLogin = new JButton("Já tenho login");
         JButton btnCadastro = new JButton("Quero me cadastrar");
+
+        btnLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnCadastro.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
         btnLogin.addActionListener(e -> cardLayout.show(painelPrincipal, "login"));
         btnCadastro.addActionListener(e -> cardLayout.show(painelPrincipal, "cadastro"));
 
         botoes.add(btnLogin);
+        botoes.add(Box.createVerticalStrut(15));
         botoes.add(btnCadastro);
 
         painel.add(botoes, BorderLayout.CENTER);
         return painel;
     }
 
+    // Cria a tela de login
     private JPanel criarPainelLogin() {
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
@@ -56,18 +86,37 @@ public class Login extends JFrame {
         JTextField campoEmail = new JTextField();
         JPasswordField campoSenha = new JPasswordField();
 
+        Dimension campoTamanho = new Dimension(Integer.MAX_VALUE, 25);
+        campoEmail.setMaximumSize(campoTamanho);
+        campoSenha.setMaximumSize(campoTamanho);
+
         JButton botaoLogin = new JButton("Entrar");
         JButton botaoVoltar = new JButton("Voltar");
 
+        // botão de logar na conta
         botaoLogin.addActionListener(e -> {
-            usuario.setEmail(campoEmail.getText());
-            usuario.setSenha(new String(campoSenha.getPassword()));
+            String email = campoEmail.getText();
+            String senha = new String(campoSenha.getPassword());
 
-            JOptionPane.showMessageDialog(this, "Login com email: " + usuario.getEmail());
+            if (email.isEmpty() || senha.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-            FileSelector file = new FileSelector();
-            file.showDisplay();
-            dispose();
+            Optional<Usuario> usuarioEncontrado = usuariosCadastrados.stream()
+                    .filter(u -> u.getEmail().equalsIgnoreCase(email) && u.getSenha().equals(senha))
+                    .findFirst();
+
+            if (usuarioEncontrado.isPresent()) {
+                usuario = usuarioEncontrado.get();
+                JOptionPane.showMessageDialog(this, "Login com sucesso: " + usuario.getNome());
+
+                FileSelector file = new FileSelector();
+                file.showDisplay();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Email ou senha inválidos!", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         botaoVoltar.addActionListener(e -> cardLayout.show(painelPrincipal, "inicio"));
@@ -85,6 +134,7 @@ public class Login extends JFrame {
         return painel;
     }
 
+    // Cria painel de cadastro
     private JPanel criarPainelCadastro() {
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
@@ -92,7 +142,7 @@ public class Login extends JFrame {
 
         JTextField campoNome = new JTextField();
         JTextField campoEmail = new JTextField();
-        JPasswordField campoSenha = new JPasswordField();
+        JTextField campoSenha = new JTextField();
         JTextField campoSetor = new JTextField();
         JTextField campoNomeLaboratorio = new JTextField();
         JTextField campoEnderecoLaboratorio = new JTextField();
@@ -100,13 +150,44 @@ public class Login extends JFrame {
         JButton botaoCadastrar = new JButton("Cadastrar");
         JButton botaoVoltar = new JButton("Voltar");
 
+        // botão de cadastrar que verifica se o email já está em uso, evitando perfils duplicados
         botaoCadastrar.addActionListener(e -> {
-            usuario.setNome(campoNome.getText());
-            usuario.setEmail(campoEmail.getText());
-            usuario.setSenha(new String(campoSenha.getPassword()));
-            usuario.setCargo(campoSetor.getText(), campoNomeLaboratorio.getText(), campoEnderecoLaboratorio.getText());
+            String nome = campoNome.getText();
+            String email = campoEmail.getText();
+            String senha = campoSenha.getText();
+            String setor = campoSetor.getText();
+            String nomeLab = campoNomeLaboratorio.getText();
+            String enderecoLab = campoEnderecoLaboratorio.getText();
 
-            JOptionPane.showMessageDialog(this, "Usuário cadastrado: " + usuario.getNome());
+            if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()
+                    || setor.isEmpty() || nomeLab.isEmpty() || enderecoLab.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            boolean jaExiste = usuariosCadastrados.stream()
+                    .anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
+
+            if (jaExiste) {
+                JOptionPane.showMessageDialog(this, "Este email já está cadastrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Usuario novoUsuario = new Usuario();
+            novoUsuario.setNome(nome);
+            novoUsuario.setEmail(email);
+            novoUsuario.setSenha(senha);
+            novoUsuario.setCargo(setor, nomeLab, enderecoLab);
+
+            usuariosCadastrados.add(novoUsuario);
+            JOptionPane.showMessageDialog(this, "Usuário cadastrado: " + novoUsuario.getNome());
+
+            campoNome.setText("");
+            campoEmail.setText("");
+            campoSenha.setText("");
+            campoSetor.setText("");
+            campoNomeLaboratorio.setText("");
+            campoEnderecoLaboratorio.setText("");
         });
 
         botaoVoltar.addActionListener(e -> cardLayout.show(painelPrincipal, "inicio"));

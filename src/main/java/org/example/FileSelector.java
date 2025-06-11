@@ -5,6 +5,7 @@ import java.io.File;
 
 public class FileSelector {
 
+    // Método que mostra a tela para escolher o arquivo .glb
     public void showDisplay() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Selecione um arquivo .glb");
@@ -21,7 +22,7 @@ public class FileSelector {
 
             GLBFileViewer.setGlbFilePath(selectedFile.getAbsolutePath());
             GLBFileViewer app = new GLBFileViewer();
-            app.start(); // inicia o visualizador
+            app.start();
         } else {
             System.out.println("Nenhum arquivo selecionado.");
         }
