@@ -14,10 +14,9 @@ public class Login extends JFrame {
     private CardLayout cardLayout;
     private JPanel painelPrincipal;
 
-    // Função para fazer as configurações iniciais das telas
     public Login() {
         setTitle("BioMeasure");
-        setSize(400, 500);
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // tela cheia
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -32,7 +31,6 @@ public class Login extends JFrame {
         setVisible(true);
     }
 
-    // Cria a primeira tela com os botões de cadastro ou login
     private JPanel criarTelaInicial() {
         JPanel painel = new JPanel(new BorderLayout());
 
@@ -45,8 +43,8 @@ public class Login extends JFrame {
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         texto.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        titulo.setFont(new Font("Arial", Font.BOLD, 22));
-        texto.setFont(new Font("Arial", Font.PLAIN, 16));
+        titulo.setFont(new Font("Arial", Font.BOLD, 28));
+        texto.setFont(new Font("Arial", Font.PLAIN, 18));
 
         painelTitulo.add(Box.createVerticalStrut(30));
         painelTitulo.add(titulo);
@@ -65,6 +63,9 @@ public class Login extends JFrame {
         btnLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnCadastro.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        Dimension botaoTamanho = new Dimension(200, 40);
+        btnLogin.setMaximumSize(botaoTamanho);
+        btnCadastro.setMaximumSize(botaoTamanho);
 
         btnLogin.addActionListener(e -> cardLayout.show(painelPrincipal, "login"));
         btnCadastro.addActionListener(e -> cardLayout.show(painelPrincipal, "cadastro"));
@@ -77,11 +78,10 @@ public class Login extends JFrame {
         return painel;
     }
 
-    // Cria a tela de login
     private JPanel criarPainelLogin() {
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
-        painel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        painel.setBorder(BorderFactory.createEmptyBorder(50, 200, 50, 200));
 
         JTextField campoEmail = new JTextField();
         JPasswordField campoSenha = new JPasswordField();
@@ -93,7 +93,6 @@ public class Login extends JFrame {
         JButton botaoLogin = new JButton("Entrar");
         JButton botaoVoltar = new JButton("Voltar");
 
-        // botão de logar na conta
         botaoLogin.addActionListener(e -> {
             String email = campoEmail.getText();
             String senha = new String(campoSenha.getPassword());
@@ -113,7 +112,7 @@ public class Login extends JFrame {
 
                 FileSelector file = new FileSelector();
                 file.showDisplay();
-                dispose();
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Email ou senha inválidos!", "Erro de Login", JOptionPane.ERROR_MESSAGE);
             }
@@ -121,10 +120,10 @@ public class Login extends JFrame {
 
         botaoVoltar.addActionListener(e -> cardLayout.show(painelPrincipal, "inicio"));
 
-        painel.add(new JLabel("Email:"));
+        painel.add(criarLabelAlinhado("Email:"));
         painel.add(campoEmail);
         painel.add(Box.createVerticalStrut(10));
-        painel.add(new JLabel("Senha:"));
+        painel.add(criarLabelAlinhado("Senha:"));
         painel.add(campoSenha);
         painel.add(Box.createVerticalStrut(15));
         painel.add(botaoLogin);
@@ -134,11 +133,10 @@ public class Login extends JFrame {
         return painel;
     }
 
-    // Cria painel de cadastro
     private JPanel criarPainelCadastro() {
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
-        painel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 200, 20, 200));
 
         JTextField campoNome = new JTextField();
         JTextField campoEmail = new JTextField();
@@ -150,7 +148,6 @@ public class Login extends JFrame {
         JButton botaoCadastrar = new JButton("Cadastrar");
         JButton botaoVoltar = new JButton("Voltar");
 
-        // botão de cadastrar que verifica se o email já está em uso, evitando perfils duplicados
         botaoCadastrar.addActionListener(e -> {
             String nome = campoNome.getText();
             String email = campoEmail.getText();
@@ -192,22 +189,22 @@ public class Login extends JFrame {
 
         botaoVoltar.addActionListener(e -> cardLayout.show(painelPrincipal, "inicio"));
 
-        painel.add(new JLabel("Nome:"));
+        painel.add(criarLabelAlinhado("Nome:"));
         painel.add(campoNome);
         painel.add(Box.createVerticalStrut(10));
-        painel.add(new JLabel("Email:"));
+        painel.add(criarLabelAlinhado("Email:"));
         painel.add(campoEmail);
         painel.add(Box.createVerticalStrut(10));
-        painel.add(new JLabel("Senha:"));
+        painel.add(criarLabelAlinhado("Senha:"));
         painel.add(campoSenha);
         painel.add(Box.createVerticalStrut(10));
-        painel.add(new JLabel("Setor:"));
+        painel.add(criarLabelAlinhado("Setor:"));
         painel.add(campoSetor);
         painel.add(Box.createVerticalStrut(10));
-        painel.add(new JLabel("Nome do Laboratório:"));
+        painel.add(criarLabelAlinhado("Nome do Laboratório:"));
         painel.add(campoNomeLaboratorio);
         painel.add(Box.createVerticalStrut(10));
-        painel.add(new JLabel("Endereço do Laboratório:"));
+        painel.add(criarLabelAlinhado("Endereço do Laboratório:"));
         painel.add(campoEnderecoLaboratorio);
         painel.add(Box.createVerticalStrut(15));
         painel.add(botaoCadastrar);
@@ -217,5 +214,13 @@ public class Login extends JFrame {
         return painel;
     }
 
+    private JLabel criarLabelAlinhado(String texto) {
+        JLabel label = new JLabel(texto);
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return label;
+    }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(Login::new);
+    }
 }
