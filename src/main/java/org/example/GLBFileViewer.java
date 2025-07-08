@@ -8,8 +8,11 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.*;
 import com.jme3.renderer.RenderManager;
-import com.jme3.scene.Spatial;
+import com.jme3.scene.*;
+import com.jme3.scene.shape.Sphere;
 import com.jme3.ui.Picture;
+import com.jme3.collision.*;
+
 import java.io.File;
 
 public class GLBFileViewer extends SimpleApplication {
@@ -62,26 +65,21 @@ public class GLBFileViewer extends SimpleApplication {
         sun.setColor(ColorRGBA.White);
         rootNode.addLight(sun);
 
-        viewPort.setBackgroundColor(ColorRGBA.White); // Fundo branco
-        addBlueFrame(); // Moldura azul bebê
+        viewPort.setBackgroundColor(ColorRGBA.White);
+        addBlueFrame();
         setupInput();
     }
 
     private void addBlueFrame() {
         ColorRGBA lightBlue = new ColorRGBA(0.7f, 0.85f, 1f, 1f);
-
         float thickness = 20f;
         float width = settings.getWidth();
         float height = settings.getHeight();
 
-        // Top
-        createFrame(0, height - thickness, width, thickness, lightBlue);
-        // Bottom
-        createFrame(0, 0, width, thickness, lightBlue);
-        // Left
-        createFrame(0, 0, thickness, height, lightBlue);
-        // Right
-        createFrame(width - thickness, 0, thickness, height, lightBlue);
+        createFrame(0, height - thickness, width, thickness, lightBlue); // Topo
+        createFrame(0, 0, width, thickness, lightBlue); // Base
+        createFrame(0, 0, thickness, height, lightBlue); // Esquerda
+        createFrame(width - thickness, 0, thickness, height, lightBlue); // Direita
     }
 
     private void createFrame(float x, float y, float w, float h, ColorRGBA color) {
@@ -110,27 +108,52 @@ public class GLBFileViewer extends SimpleApplication {
     }
 
     private final ActionListener actionListener = (name, isPressed, tpf) -> {
+        if (name.equals("MouseLeftClick") && isPressed) {
+            CollisionResults results = new CollisionResults();
+            Vector2f click2d = inputManager.getCursorPosition();
+            Vector3f click3d = cam.getWorldCoordinates(click2d, 0f).clone();
+            Vector3f dir = cam.getWorldCoordinates(click2d, 1f).subtractLocal(click3d).normalizeLocal();
+
+            Ray ray = new Ray(click3d, dir);
+            loadedModel.collideWith(ray, results);
+
+            if (results.size() > 0) {
+                Vector3f ponto = results.getClosestCollision().getContactPoint();
+                adicionarPonto(ponto);
+            }
+        }
+
         if (name.equals("MouseLeftClick")) {
             isMousePressed = isPressed;
         }
     };
+
+    private void adicionarPonto(Vector3f local) {
+        Sphere esfera = new Sphere(10, 10, 0.05f);
+        Geometry ponto = new Geometry("Ponto3D", esfera);
+        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        mat.setColor("Color", ColorRGBA.Red);
+        ponto.setMaterial(mat);
+        ponto.setLocalTranslation(local);
+        rootNode.attachChild(ponto);
+    }
 
     private final AnalogListener analogListener = (name, value, tpf) -> {
         if (!isMousePressed) return;
 
         switch(name) {
             case "RotateRight":
-                camYaw -= ROTATION_SPEED * tpf * value*4;
+                camYaw -= ROTATION_SPEED * tpf * value * 4;
                 break;
             case "RotateLeft":
-                camYaw += ROTATION_SPEED * tpf * value*4;
+                camYaw += ROTATION_SPEED * tpf * value * 4;
                 break;
             case "RotateDown":
-                camPitch -= ROTATION_SPEED * tpf * value*4;
+                camPitch -= ROTATION_SPEED * tpf * value * 4;
                 camPitch = FastMath.clamp(camPitch, -FastMath.HALF_PI + 0.1f, FastMath.HALF_PI - 0.1f);
                 break;
             case "RotateUp":
-                camPitch += ROTATION_SPEED * tpf * value*4;
+                camPitch += ROTATION_SPEED * tpf * value * 4;
                 camPitch = FastMath.clamp(camPitch, -FastMath.HALF_PI + 0.1f, FastMath.HALF_PI - 0.1f);
                 break;
             case "ZoomIn":
@@ -158,5 +181,8 @@ public class GLBFileViewer extends SimpleApplication {
         cam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
     }
 
-
+    @Override
+    public void simpleRender(RenderManager rm) {
+        // renderização customizada (se precisar)
+    }
 }
