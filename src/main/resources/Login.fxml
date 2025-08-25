@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.Controller.LoginController"
+      alignment="CENTER" spacing="15">
+
+    <padding>
+        <Insets top="40" right="50" bottom="40" left="50"/>
+    </padding>
+
+    <Label text="Bem-vindo ao BioMeasure" styleClass="titulo"/>
+    <Label text="Acesse sua conta para iniciar a análise" styleClass="subtitulo"/>
+
+    <TextField fx:id="campoEmail" promptText="Email" maxWidth="250"/>
+    <PasswordField fx:id="campoSenha" promptText="Senha" maxWidth="250"/>
+
+    <Button text="Entrar" onAction="#realizarLogin" maxWidth="250"/>
+
+    <Label text="Ainda não possui uma conta?" />
+    <Button text="Cadastrar-se" onAction="#abrirCadastro" maxWidth="150"/>
+</VBox>

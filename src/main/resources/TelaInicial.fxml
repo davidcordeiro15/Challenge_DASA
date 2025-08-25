@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+
+
+<VBox spacing="25" alignment="CENTER"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.Controller.LoginController"
+      stylesheets="@Styles/style.css"
+      prefWidth="600" prefHeight="400">
+
+    <Label text="Bem-vindo ao BioMeasure" styleClass="titulo"/>
+    <Label text="Aqui sua análise é mais precisa" styleClass="subtitulo"/>
+
+    <VBox spacing="15" alignment="CENTER">
+        <Button text="Login" onAction="#realizarLogin" styleClass="botao-principal"/>
+        <Button text="Cadastro" onAction="#abrirCadastro"/>
+
+    </VBox>
+</VBox>

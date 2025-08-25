@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.Controller.Visualizador3DController"
+      alignment="CENTER" spacing="20">
+
+    <padding>
+        <Insets top="30" right="50" bottom="30" left="50"/>
+    </padding>
+
+    <Label text="Visualizador de Arquivos 3D (.glb)" styleClass="titulo"/>
+    <Button text="Selecionar Arquivo 3D" onAction="#abrirSeletorArquivo"/>
+</VBox>

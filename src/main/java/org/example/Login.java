@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.Model.Usuario;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -220,7 +222,5 @@ public class Login extends JFrame {
         return label;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(Login::new);
-    }
+
 }

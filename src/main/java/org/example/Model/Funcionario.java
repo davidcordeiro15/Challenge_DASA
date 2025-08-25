@@ -1,6 +1,8 @@
-package org.example;
+package org.example.Model;
 
-public class Funcionario extends Usuario{
+import org.example.Laboratorio;
+
+public class Funcionario extends Usuario {
     private String setor;
     private Laboratorio laboratorio;
 

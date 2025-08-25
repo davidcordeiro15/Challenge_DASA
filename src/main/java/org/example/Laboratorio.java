@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.Model.Peca;
+
 import java.util.List;
 
 public class Laboratorio {

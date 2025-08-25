@@ -1,5 +1,5 @@
-package org.example;
-import java.util.*;
+package org.example.Model;
+import org.example.Laboratorio;
 
 public class Usuario {
     private Long id;

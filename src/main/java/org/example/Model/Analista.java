@@ -1,8 +1,10 @@
-package org.example;
+package org.example.Model;
+
+import org.example.Laboratorio;
 
 import java.util.List;
 
-public class Analista extends Funcionario{
+public class Analista extends Funcionario {
     private List<Peca> pecas; // Peças que foram analizadas por esse funcionário
 
 
