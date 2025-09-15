@@ -3,11 +3,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.*?>
 
-
 <VBox spacing="25" alignment="CENTER"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.Controller.LoginController"
+      fx:controller="org.example.Controller.InicioController"
       stylesheets="@Styles/style.css"
       prefWidth="600" prefHeight="400">
 
@@ -15,8 +14,7 @@
     <Label text="Aqui sua análise é mais precisa" styleClass="subtitulo"/>
 
     <VBox spacing="15" alignment="CENTER">
-        <Button text="Login" onAction="#realizarLogin" styleClass="botao-principal"/>
+        <Button text="Login" onAction="#abrirLogin" styleClass="botao-principal"/>
         <Button text="Cadastro" onAction="#abrirCadastro"/>
-
     </VBox>
 </VBox>

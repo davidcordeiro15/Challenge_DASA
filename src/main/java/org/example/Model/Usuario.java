@@ -1,8 +1,7 @@
 package org.example.Model;
-import org.example.Laboratorio;
 
 public class Usuario {
-    private Long id;
+    private int id;
     private String nome;
     private String senha;
     private Funcionario cargo;
@@ -17,6 +16,15 @@ public class Usuario {
     }
 
     // Getters e Setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }

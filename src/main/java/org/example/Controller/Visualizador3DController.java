@@ -2,7 +2,7 @@ package org.example.Controller;
 
 
 import javafx.fxml.FXML;
-import org.example.FileSelector;
+import org.example.Ui.FileSelector;
 
 public class Visualizador3DController {
 

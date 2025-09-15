@@ -1,6 +1,4 @@
-package org.example;
-
-import org.example.Model.Peca;
+package org.example.Model;
 
 import java.util.List;
 

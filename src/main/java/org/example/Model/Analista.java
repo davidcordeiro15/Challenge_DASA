@@ -1,7 +1,5 @@
 package org.example.Model;
 
-import org.example.Laboratorio;
-
 import java.util.List;
 
 public class Analista extends Funcionario {

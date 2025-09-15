@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Ui;
 
 import javax.swing.*;
 import java.io.File;

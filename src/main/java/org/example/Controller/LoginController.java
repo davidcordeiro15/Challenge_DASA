@@ -1,73 +1,66 @@
 package org.example.Controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import org.example.FileSelector;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import org.example.Model.Usuario;
+import org.example.Service.UsuarioService;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.SQLException;
 
 public class LoginController {
 
-    private static final List<Usuario> usuarios = new ArrayList<>();
-
-    @FXML private TextField campoEmail;
-    @FXML private PasswordField campoSenha;
+    @FXML
+    private TextField campoEmail;
 
     @FXML
-    private void realizarLogin() {
+    private PasswordField campoSenha;
+
+    private UsuarioService usuarioService = new UsuarioService();
+
+    // 🔹 Ação do botão "Entrar"
+    @FXML
+    private void realizarLogin(ActionEvent event) {
         String email = campoEmail.getText();
         String senha = campoSenha.getText();
 
-        if (email.equals("admin@biomeasure.com") && senha.equals("1234")) {
-            abrirVisualizador3D();
-            fecharTelaAtual();
-        } else {
-            mostrarAlerta("Credenciais inválidas. Verifique seu email e senha.", Alert.AlertType.ERROR);
+        if (email.isEmpty() || senha.isEmpty()) {
+            mostrarAlerta("Erro", "Preencha todos os campos!", Alert.AlertType.WARNING);
+            return;
         }
-    }
 
-    private void abrirVisualizador3D() {
-        // Abre diretamente o seletor de arquivo e inicia visualização 3D
-        FileSelector seletor = new FileSelector();
-        seletor.showDisplay();
-    }
-
-    @FXML
-    private void abrirCadastro() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Cadastro.fxml"));
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Cadastro");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            mostrarAlerta("Erro ao abrir tela de cadastro.", Alert.AlertType.ERROR);
+            Usuario usuario = usuarioService.autenticarUsuario(senha, email);
+
+            if (usuario != null && usuario.getId() > 0) {
+                mostrarAlerta("Sucesso", "Login realizado com sucesso!", Alert.AlertType.INFORMATION);
+
+
+
+            } else {
+                mostrarAlerta("Erro", "Credenciais inválidas!", Alert.AlertType.ERROR);
+            }
+
+        } catch (SQLException ex) {
+            mostrarAlerta("Erro de banco de dados", ex.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
-    private void fecharTelaAtual() {
-        Stage stage = (Stage) campoEmail.getScene().getWindow();
-        stage.close();
+    // 🔹 Ação do botão "Cadastrar-se"
+    @FXML
+    private void abrirCadastro(ActionEvent event) {
+        mostrarAlerta("Cadastro", "Abrir tela de cadastro aqui...", Alert.AlertType.INFORMATION);
+        // Aqui você pode carregar outro FXML para cadastro
     }
 
-    private void mostrarAlerta(String mensagem, Alert.AlertType tipo) {
+    // 🔹 Método auxiliar para mostrar alertas
+    private void mostrarAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
         Alert alerta = new Alert(tipo);
-        alerta.setTitle("Mensagem");
+        alerta.setTitle(titulo);
         alerta.setHeaderText(null);
         alerta.setContentText(mensagem);
         alerta.showAndWait();
-    }
-
-    public static void adicionarUsuario(Usuario u) {
-        usuarios.add(u);
     }
 }
