@@ -81,7 +81,7 @@ public class CadastroController {
     private void voltarLogin(ActionEvent event) {
         try {
             Stage stage = (Stage) campoNome.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/View/Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);

@@ -56,11 +56,8 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>22.0.2</version>
-        </dependency>
+
+
 
         <!-- JavaFX FXML -->
         <dependency>

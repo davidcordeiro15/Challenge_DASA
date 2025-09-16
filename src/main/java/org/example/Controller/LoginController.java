@@ -2,12 +2,17 @@ package org.example.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.example.Model.Usuario;
 import org.example.Service.UsuarioService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginController {
@@ -19,6 +24,8 @@ public class LoginController {
     private PasswordField campoSenha;
 
     private UsuarioService usuarioService = new UsuarioService();
+
+    private Visualizador3DController visualizador = new Visualizador3DController();
 
     // 🔹 Ação do botão "Entrar"
     @FXML
@@ -36,8 +43,7 @@ public class LoginController {
 
             if (usuario != null && usuario.getId() > 0) {
                 mostrarAlerta("Sucesso", "Login realizado com sucesso!", Alert.AlertType.INFORMATION);
-
-
+                visualizador.abrirSeletorArquivo();
 
             } else {
                 mostrarAlerta("Erro", "Credenciais inválidas!", Alert.AlertType.ERROR);
@@ -51,8 +57,20 @@ public class LoginController {
     // 🔹 Ação do botão "Cadastrar-se"
     @FXML
     private void abrirCadastro(ActionEvent event) {
-        mostrarAlerta("Cadastro", "Abrir tela de cadastro aqui...", Alert.AlertType.INFORMATION);
-        // Aqui você pode carregar outro FXML para cadastro
+
+        try {
+            Stage stage = (Stage) campoEmail.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Cadastro.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Login - BioMeasure");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // 🔹 Método auxiliar para mostrar alertas
