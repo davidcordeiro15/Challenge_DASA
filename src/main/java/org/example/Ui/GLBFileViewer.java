@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Ui;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
@@ -17,9 +17,11 @@ import com.jme3.system.AppSettings;
 import com.jme3.ui.Picture;
 
 import java.io.File;
+import java.util.Objects;
 
 public class GLBFileViewer extends SimpleApplication {
 
+    private static String glbFilePath; // Caminho definido pelo FileSelector
     private Spatial model;
     private Node modelNode;
     private Picture botaoMedicao;
@@ -27,53 +29,63 @@ public class GLBFileViewer extends SimpleApplication {
     private Geometry ponto1 = null;
     private Geometry ponto2 = null;
 
+    /**
+     * Setter usado pelo FileSelector para informar o arquivo .glb
+     */
+    public static void setGlbFilePath(String path) {
+        glbFilePath = path;
+    }
+
     public static void main(String[] args) {
-        GLBFileViewer app = new GLBFileViewer();
-
-        // 🚨 Corrige o problema de OpenAL
-        AppSettings settings = new AppSettings(true);
-        settings.setAudioRenderer(null); // desativa áudio
-        app.setSettings(settings);
-        app.setShowSettings(false);
-
-        app.start();
+        FileSelector selector = new FileSelector();
+        selector.showDisplay(); // Inicia pela tela de seleção
     }
 
     @Override
     public void simpleInitApp() {
-        // Ajustes de câmera
+        if (glbFilePath == null || glbFilePath.isEmpty()) {
+            System.err.println("Nenhum arquivo .glb foi definido.");
+            stop();
+            return;
+        }
+
+        // 🚨 Desativa áudio para evitar erro de OpenAL
+        AppSettings settings = new AppSettings(true);
+        settings.setAudioRenderer(null);
+        setSettings(settings);
+
+        // Configura câmera
         flyCam.setMoveSpeed(10);
         cam.setLocation(new Vector3f(0, 3, 10));
         cam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
 
-        // Luz ambiente
         viewPort.setBackgroundColor(ColorRGBA.DarkGray);
 
-        // Carregar o modelo GLB
-        assetManager.registerLocator("C:/Users/labsfiap/Desktop", FileLocator.class);
-        model = assetManager.loadModel("boneco.glb");
+        // Registrar diretório e carregar modelo
+        File file = new File(glbFilePath);
+        assetManager.registerLocator(file.getParent(), FileLocator.class);
+        model = assetManager.loadModel(file.getName());
+
         modelNode = new Node("modelNode");
         modelNode.attachChild(model);
         rootNode.attachChild(modelNode);
 
         // Criar botão de medição
         botaoMedicao = new Picture("BotaoMedicao");
-        botaoMedicao.setImage(assetManager, "Interface/Logo/Monkey.png", true); // usa o logo padrão
+        botaoMedicao.setImage(assetManager, "Interface/Logo/Monkey.png", true);
         botaoMedicao.setWidth(100);
         botaoMedicao.setHeight(40);
         botaoMedicao.setPosition(10, 10);
         guiNode.attachChild(botaoMedicao);
 
-        // Configurar input
+        // Input
         setupInput();
     }
 
     private void setupInput() {
-        // Rotação horizontal
+        // Rotação
         inputManager.addMapping("RotateLeft", new MouseAxisTrigger(MouseInput.AXIS_X, true));
         inputManager.addMapping("RotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, false));
-
-        // Rotação vertical
         inputManager.addMapping("RotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
         inputManager.addMapping("RotateDown", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
 
@@ -85,7 +97,6 @@ public class GLBFileViewer extends SimpleApplication {
         inputManager.addMapping("MouseLeftClick", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
         inputManager.addMapping("BotaoClique", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
 
-        // Listeners
         inputManager.addListener(analogListener,
                 "RotateLeft", "RotateRight", "RotateUp", "RotateDown",
                 "ZoomIn", "ZoomOut");
@@ -108,8 +119,7 @@ public class GLBFileViewer extends SimpleApplication {
 
     private final ActionListener actionListener = (name, isPressed, tpf) -> {
         if ("MouseLeftClick".equals(name) && isPressed && medindo) {
-            Vector3f click3d = cam.getWorldCoordinates(
-                    inputManager.getCursorPosition(), 0f).clone();
+            Vector3f click3d = cam.getWorldCoordinates(inputManager.getCursorPosition(), 0f).clone();
             Box box = new Box(0.1f, 0.1f, 0.1f);
             Geometry ponto = new Geometry("Ponto", box);
             Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
@@ -132,11 +142,7 @@ public class GLBFileViewer extends SimpleApplication {
     private final ActionListener botaoListener = (name, isPressed, tpf) -> {
         if ("BotaoClique".equals(name) && isPressed) {
             medindo = !medindo;
-            if (medindo) {
-                System.out.println("Modo medição ativado.");
-            } else {
-                System.out.println("Modo medição desativado.");
-            }
+            System.out.println(medindo ? "Modo medição ativado." : "Modo medição desativado.");
         }
     };
 
@@ -150,8 +156,5 @@ public class GLBFileViewer extends SimpleApplication {
     @Override
     public void simpleRender(RenderManager rm) {}
 
-    @Override
-    public void reshape(ViewPort vp, int w, int h) {
-        super.reshape(vp, w, h);
-    }
+
 }
