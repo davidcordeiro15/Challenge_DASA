@@ -14,3 +14,4 @@ public class Main {
         Run.main(args);
     }
 }
+// --add-modules javafx.controls,javafx.fxml

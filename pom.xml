@@ -70,6 +70,20 @@
             <artifactId>javafx-fxml</artifactId>
             <version>22.0.2</version>
         </dependency>
+        <dependency>
+            <groupId>us.ihmc</groupId>
+            <artifactId>jimFxmlModelImporterJFX</artifactId>
+            <version>0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.interactivemesh</groupId>
+            <artifactId>jimObjModelImporterJFX</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/JFX3DModelImporters/jimObjModelImporterJFX.jar</systemPath>
+        </dependency>
+
+
     </dependencies>
     <build>
         <plugins>
