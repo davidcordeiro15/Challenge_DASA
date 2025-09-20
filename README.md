@@ -29,7 +29,7 @@ Carregamento de arquivos .obj via importador 3D
 Interface para manipular e centralizar modelos
 
 ## 🗂 Estrutura do Projeto
-    text
+    
     src/
     └── org.example/
         ├── Config/
@@ -67,6 +67,8 @@ Interface para manipular e centralizar modelos
         │   └── Run.java                         # Execução da aplicação
         │
         └── Main.java                            # Classe principal (entrypoint)
+        └── test.org.example/
+              └── UsuarioServiceTest.java          # Testes JUnit para Usuários e Itens
     
     resources/
     ├── Cadastro.fxml          # Tela de cadastro
@@ -80,6 +82,7 @@ Interface para manipular e centralizar modelos
 ## ▶️ Como Executar
 ### Clone o repositório:
 bash
+
     git clone https://github.com/davidcordeiro15/Challenge_DASA.git
 
 ### Configuração do Ambiente
@@ -89,7 +92,9 @@ No IntelliJ vá em Run > Edit Configurations > Application
 
 Adicione o arquivo Main como ponto de entrada
 
-Coloque no campo abaixo o comando: --add-modules javafx.controls,javafx.fxml
+Coloque no campo abaixo o comando: 
+    
+    --add-modules javafx.controls,javafx.fxml
 
 ### Execução da Aplicação
 bash
