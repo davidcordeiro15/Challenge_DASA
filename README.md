@@ -17,7 +17,6 @@ Login: valida os dados e acessa o sistema
 
 Atualização de Usuário: permite modificar dados existentes
 
-Exclusão de Usuário: remove usuários do sistema
 
 ### 🏢 Funcionários e Papéis
 Modelos para Gestor, Funcionário, Analista e Laboratório
@@ -33,41 +32,41 @@ Interface para manipular e centralizar modelos
 text
 src/
 └── org.example/
-├── Config/
-│    └── DatabaseConnectionFactory.java   # Conexão com o banco de dados
-│
-├── Controller/
-│    ├── CadastroController.java          # Lógica da tela de cadastro
-│    ├── InicioController.java            # Tela inicial
-│    ├── LoginController.java             # Controle da tela de login
-│    ├── ViewerController.java            # Controle do visualizador de arquivos
-│    └── Visualizador3DController.java    # Controle do visualizador 3D
-│
-├── Dao/
-│    ├── DatabaseSetupDao.java            # Criação de tabelas no BD
-│    └── UsuarioDao.java                  # Operações CRUD de usuários
-│
-├── Model/
-│    ├── Analista.java
-│    ├── Funcionario.java
-│    ├── Gestor.java
-│    ├── Laboratorio.java
-│    ├── Peca.java
-│    └── Usuario.java                     # Classe modelo principal de usuários
-│
-├── Service/
-│    └── UsuarioService.java              # Regras de negócio de usuários
-│
-├── Ui/
-│    ├── FileSelector.java                # Utilitário de seleção de arquivos
-│    └── GLBFileViewer.java               # Viewer específico para arquivos 3D
-│
-├── Util/
-│    ├── EmailValidator.java              # Validação de e-mails
-│    ├── OBJLoader.java                   # Loader para arquivos OBJ
-│    └── Run.java                         # Execução da aplicação
-│
-└── Main.java                             # Classe principal (entrypoint)
+    ├── Config/
+    │   └── DatabaseConnectionFactory.java   # Conexão com o banco de dados
+    │
+    ├── Controller/
+    │   ├── CadastroController.java          # Lógica da tela de cadastro
+    │   ├── InicioController.java            # Tela inicial
+    │   ├── LoginController.java             # Controle da tela de login
+    │   ├── ViewerController.java            # Controle do visualizador de arquivos
+    │   └── Visualizador3DController.java    # Controle do visualizador 3D
+    │
+    ├── Dao/
+    │   ├── DatabaseSetupDao.java            # Criação de tabelas no BD
+    │   └── UsuarioDao.java                  # Operações CRUD de usuários
+    │
+    ├── Model/
+    │   ├── Analista.java
+    │   ├── Funcionario.java
+    │   ├── Gestor.java
+    │   ├── Laboratorio.java
+    │   ├── Peca.java
+    │   └── Usuario.java                     # Classe modelo principal de usuários
+    │
+    ├── Service/
+    │   └── UsuarioService.java              # Regras de negócio de usuários
+    │
+    ├── Ui/
+    │   ├── FileSelector.java                # Utilitário de seleção de arquivos
+    │   └── GLBFileViewer.java               # Viewer específico para arquivos 3D
+    │
+    ├── Util/
+    │   ├── EmailValidator.java              # Validação de e-mails
+    │   ├── OBJLoader.java                   # Loader para arquivos OBJ
+    │   └── Run.java                         # Execução da aplicação
+    │
+    └── Main.java                            # Classe principal (entrypoint)
 
 resources/
 ├── Cadastro.fxml          # Tela de cadastro
@@ -76,6 +75,7 @@ resources/
 ├── TelaInicial.fxml       # Tela inicial
 ├── Visualizador3D.fxml    # Estrutura da cena 3D
 └── style.css              # Estilos da aplicação
+
 
 ## ▶️ Como Executar
 ### Clone o repositório:
