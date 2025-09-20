@@ -59,7 +59,7 @@ Interface para manipular e centralizar modelos
         │
         ├── Ui/
         │   ├── FileSelector.java                # Utilitário de seleção de arquivos
-        │   └── GLBFileViewer.java               # Viewer específico para arquivos 3D
+        │   └── OBJFileViewer.java               # Viewer específico para arquivos 3D
         │
         ├── Util/
         │   ├── EmailValidator.java              # Validação de e-mails

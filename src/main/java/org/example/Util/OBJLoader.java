@@ -100,9 +100,7 @@ public class OBJLoader {
         ));
     }
 
-    /**
-     * Método alternativo: Retorna informações do bounding box para debug
-     */
+
     public static String getModelInfo(Group model) {
         Bounds bounds = model.getBoundsInLocal();
         return String.format(

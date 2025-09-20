@@ -220,7 +220,7 @@ public class LoginController {
         }
     }
 
-    // 🔹 Método auxiliar para mostrar alertas (sempre na thread do JavaFX)
+
     private void mostrarAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
         // Garantir que está na thread do JavaFX
         if (javafx.application.Platform.isFxApplicationThread()) {
