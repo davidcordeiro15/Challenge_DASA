@@ -68,7 +68,7 @@ Interface para manipular e centralizar modelos
         │
         └── Main.java                            # Classe principal (entrypoint)
         └── test.org.example/
-              └── UsuarioServiceTest.java          # Testes JUnit para Usuários e Itens
+              └── UsuarioServiceTest.java          # Testes JUnit para Usuários 
     
     resources/
     ├── Cadastro.fxml          # Tela de cadastro
