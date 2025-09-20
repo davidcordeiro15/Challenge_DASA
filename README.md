@@ -1,33 +1,35 @@
 🧑‍💻 Sistema de Gestão de Usuários com Visualizador 3D
+## Descrição do Projeto
 Este projeto foi desenvolvido em Java 8 com JavaFX para a interface gráfica e JDBC para integração com banco de dados. Além das funcionalidades de cadastro e login de usuários, o sistema permite visualizar modelos 3D (.obj) dentro da aplicação, utilizando a biblioteca JFX3DModelImporters.
 
-👥 Integrantes
+## 👥 Integrantes
 RM 557538 - David Cordeiro
 
 RM 555619 - Tiago Morais
 
 RM 557065 - Vinicius Augusto
 
-🚀 Funcionalidades
-👤 Usuários
+## 🚀 Funcionalidades
+### 👤 Usuários
 Cadastro de Usuário: cria novos usuários
 
 Login: valida os dados e acessa o sistema
 
 Atualização de Usuário: permite modificar dados existentes
 
+Exclusão de Usuário: remove usuários do sistema
 
-🏢 Funcionários e Papéis
+### 🏢 Funcionários e Papéis
 Modelos para Gestor, Funcionário, Analista e Laboratório
 
 Representação em classes de domínio
 
-🖼️ Visualização 3D
+### 🖼️ Visualização 3D
 Carregamento de arquivos .obj via importador 3D
 
 Interface para manipular e centralizar modelos
 
-🗂 Estrutura do Projeto
+## 🗂 Estrutura do Projeto
 text
 src/
 └── org.example/
@@ -74,24 +76,28 @@ resources/
 ├── TelaInicial.fxml       # Tela inicial
 ├── Visualizador3D.fxml    # Estrutura da cena 3D
 └── style.css              # Estilos da aplicação
-▶️ Como Executar
-Clone o repositório:
 
+## ▶️ Como Executar
+### Clone o repositório:
 bash
-git clone https://github.com/seuusuario/seuprojeto.git
-cd seuprojeto
+git clone https://github.com/davidcordeiro15/Challenge_DASA.git
+
+### Configuração do Ambiente
 Certifique-se de ter o Java 8+ e JavaFX configurados
 
-No inteliJ vá em Run > Edit Configurations > Application adicione o arquivo Main como ponto de entrada e coloque no campo abaixo o comando:
---add-modules javafx.controls,javafx.fxml
+No IntelliJ vá em Run > Edit Configurations > Application
 
-Rode a classe principal:
+Adicione o arquivo Main como ponto de entrada
 
+Coloque no campo abaixo o comando: --add-modules javafx.controls,javafx.fxml
+
+### Execução da Aplicação
 bash
 java org.example.Main
+### Utilização do Sistema
 Utilize as telas para login, cadastro e visualização 3D
 
-✅ Tecnologias Utilizadas
+## ✅ Tecnologias Utilizadas
 Java 8
 
 JavaFX (UI e FXML)
@@ -100,22 +106,21 @@ JDBC (persistência)
 
 JFX3DModelImporters (visualização de modelos 3D .obj)
 
-🧪 Testes
+## 🧪 Testes
 CRUD de Usuários
 
 Validação de login
 
 Verificação de carregamento de modelos .obj
 
-📷 Interfaces
-🔑 Tela de Login
+## 📷 Interfaces
+### 🔑 Tela de Login
 Campos de usuário e senha
 
 Acesso ao sistema com dados válidos
 
-📝 Tela de Cadastro
+### 📝 Tela de Cadastro
 Registro de novos usuários
 
-🖼️ Tela 3D
+### 🖼️ Tela 3D
 Seleção e visualização de modelos .obj
-
