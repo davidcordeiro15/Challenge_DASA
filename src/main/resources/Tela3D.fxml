@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
@@ -15,14 +16,15 @@
             <ToggleButton fx:id="togglePlace" text="Modo Colocar Bolinha" onAction="#onTogglePlace"/>
             <Button text="Adicionar Bolinha (frente da câmera)" onAction="#onAddSphere"/>
             <Button text="Limpar Bolinhas" onAction="#onClearSpheres"/>
-            <Label fx:id="lblInfo" text=" " />
+            <Separator/>
+            <Label fx:id="lblInfo" text="Carregue um modelo OBJ para começar" />
         </ToolBar>
     </top>
 
     <bottom>
         <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding:8;">
             <Label text="Controles:"/>
-            <Label text="Arraste (esq) = orbitar | Scroll = zoom | Shift+arraste = pan" style="-fx-font-size:11; -fx-opacity:0.9"/>
+            <Label text="Arrastar = orbitar | Shift+Arrastar = pan | Scroll = zoom | WASD = mover (Shift = rápido) | Botão do scroll = adicionar ponto | R = reset" style="-fx-font-size:11; -fx-opacity:0.9"/>
         </HBox>
     </bottom>
 </BorderPane>

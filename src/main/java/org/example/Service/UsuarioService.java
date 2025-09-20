@@ -41,9 +41,7 @@ public class UsuarioService {
     public Usuario buscarUsuarioPorEmail(String email) throws SQLException {
         return usuarioDAO.buscarPorEmail(email);
     }
-    public Usuario buscarUsuarioPorId(int id) throws SQLException {
-        return usuarioDAO.buscarPorId(id);
-    }
+
 
     // 🔹 Autenticar usuário
     public Usuario autenticarUsuario(String senha, String email) throws SQLException {
@@ -67,17 +65,7 @@ public class UsuarioService {
         return false;
     }
 
-    // 🔹 Atualizar usuário
-    public boolean atualizarUsuario(Usuario usuario) throws SQLException {
-        // Verificar se o novo email já pertence a outro usuário
-        Usuario usuarioComEmail = usuarioDAO.buscarPorEmail(usuario.getEmail());
 
-        if (usuarioComEmail.getEmail().equals(usuario.getEmail())) {
-            return false; // Email já está em uso por outro usuário
-        }
-
-        return usuarioDAO.atualizar(usuario);
-    }
 
     // 🔹 Deletar usuário por Email
     public boolean deletarUsuario(String email) throws SQLException {
