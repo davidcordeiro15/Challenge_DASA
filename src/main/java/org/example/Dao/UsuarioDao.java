@@ -10,11 +10,11 @@ import java.util.Optional;
 
 public class UsuarioDao {
 
-    private static final String INSERT_SQL = "INSERT INTO usuarios (nome, email) VALUES (?, ?)";
+    private static final String INSERT_SQL = "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)";
     private static final String SELECT_ALL_SQL = "SELECT id, nome, email FROM usuarios ORDER BY nome";
     private static final String SELECT_BY_ID_SQL = "SELECT id, nome, email FROM usuarios WHERE id = ?";
     private static final String SELECT_BY_EMAIL_SQL = "SELECT id, nome, email FROM usuarios WHERE email = ?";
-    private static final String SELECT_BY_CREDENTIALS_SQL = "SELECT id, nome, email FROM usuarios WHERE nome = ? AND email = ?";
+    private static final String SELECT_BY_CREDENTIALS_SQL = "SELECT id, nome, email FROM usuarios WHERE senha = ? AND email = ?";
     private static final String UPDATE_SQL = "UPDATE usuarios SET nome = ?, email = ? WHERE id = ?";
     private static final String DELETE_SQL = "DELETE FROM usuarios WHERE email = ?";
     private static final String EXISTS_BY_EMAIL_SQL = "SELECT 1 FROM usuarios WHERE email = ?";
@@ -26,6 +26,7 @@ public class UsuarioDao {
 
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
+            stmt.setString(3, usuario.getSenha());
 
             int affectedRows = stmt.executeUpdate();
 
@@ -91,11 +92,11 @@ public class UsuarioDao {
 
 
     // 🔹 Verificar se usuário existe por credenciais
-    public Usuario buscarPorCredenciais(String nome, String email) throws SQLException {
+    public Usuario buscarPorCredenciais(String senha, String email) throws SQLException {
         try (Connection conn = DatabaseConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(SELECT_BY_CREDENTIALS_SQL)) {
 
-            stmt.setString(1, nome);
+            stmt.setString(1, senha);
             stmt.setString(2, email);
 
             try (ResultSet rs = stmt.executeQuery()) {
@@ -104,7 +105,7 @@ public class UsuarioDao {
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException("Usuário não encontrado com nome: " + nome + " e email: " + email);
+            throw new RuntimeException("Usuário não encontrado com email: " + email);
         }
         return null;
     }

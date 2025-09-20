@@ -33,3 +33,29 @@
 .botao-secundario:hover {
     -fx-background-color: #95a5a6;
 }
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+.button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 8, 0, 0, 3);
+}
+
+.text-field, .password-field {
+    -fx-pref-height: 35px;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-padding: 0 10 0 10;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #4a69bd;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 105, 189, 0.3), 5, 0, 0, 0);
+}

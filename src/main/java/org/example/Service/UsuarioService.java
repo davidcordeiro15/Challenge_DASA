@@ -46,8 +46,8 @@ public class UsuarioService {
     }
 
     // 🔹 Autenticar usuário
-    public Usuario autenticarUsuario(String nome, String email) throws SQLException {
-        Usuario user = usuarioDAO.buscarPorCredenciais(nome, email);
+    public Usuario autenticarUsuario(String senha, String email) throws SQLException {
+        Usuario user = usuarioDAO.buscarPorCredenciais(senha, email);
         if (user == null) {
             Usuario usuarioInvalido = new Usuario();
             usuarioInvalido.setId(-1); // ID negativo indica usuário inválido
