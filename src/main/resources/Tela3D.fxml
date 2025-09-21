@@ -17,14 +17,24 @@
             <Button text="Adicionar Bolinha (frente da câmera)" onAction="#onAddSphere"/>
             <Button text="Limpar Bolinhas" onAction="#onClearSpheres"/>
             <Separator/>
-            <Label fx:id="lblInfo" text="Carregue um modelo OBJ para começar" />
+            <Label fx:id="lblInfo" text="Carregue um modelo OBJ para começar" style="-fx-font-weight: bold;" />
         </ToolBar>
     </top>
 
     <bottom>
-        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding:8;">
-            <Label text="Controles:"/>
-            <Label text="Arrastar = orbitar | Shift+Arrastar = pan | Scroll = zoom | WASD = mover (Shift = rápido) | Botão do scroll = adicionar ponto | R = reset" style="-fx-font-size:11; -fx-opacity:0.9"/>
-        </HBox>
+        <VBox spacing="5" style="-fx-padding: 8;">
+            <!-- Área de informações de medição -->
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #3a3a3a; -fx-padding: 8; -fx-background-radius: 5;">
+                <Label text="📏 Medições:" style="-fx-text-fill: #ffffff; -fx-font-weight: bold;"/>
+                <Label fx:id="lblMeasurements" text="Nenhuma medição ativa" style="-fx-text-fill: #cccccc;"/>
+            </HBox>
+
+            <!-- Controles -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Controles:" style="-fx-font-weight: bold;"/>
+                <Label text="Arrastar = orbitar | Shift+Arrastar = pan | Scroll = zoom | WASD = mover (A=direita, D=esquerda) | Botão do scroll = ponto vermelho (medição) | R = reset | C = limpar" style="-fx-font-size:11; -fx-opacity:0.9"/>
+            </HBox>
+        </VBox>
     </bottom>
 </BorderPane>
+
