@@ -97,8 +97,9 @@ Coloque no campo abaixo o comando:
     --add-modules javafx.controls,javafx.fxml
 
 ### Execução da Aplicação
-bash
-java org.example.Main
+
+Clique em Run 
+
 ### Utilização do Sistema
 Utilize as telas para login, cadastro e visualização 3D
 
