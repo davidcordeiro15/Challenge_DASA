@@ -106,6 +106,8 @@ Utilize as telas para login, cadastro e visualização 3D
 ## ✅ Tecnologias Utilizadas
 Java 8
 
+JDK 22.0.2
+
 JavaFX (UI e FXML)
 
 JDBC (persistência)
