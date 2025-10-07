@@ -17,8 +17,12 @@
             <Button text="Adicionar Bolinha (frente da câmera)" onAction="#onAddSphere"/>
             <Button text="Limpar Bolinhas" onAction="#onClearSpheres"/>
             <Separator/>
+
+            <Button text="Enviar Dados" onAction="#onSendMeasurements"/>
+            <Separator/>
             <Label fx:id="lblInfo" text="Carregue um modelo OBJ para começar" style="-fx-font-weight: bold;" />
         </ToolBar>
+
     </top>
 
     <bottom>

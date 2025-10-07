@@ -755,5 +755,60 @@ public class ViewerController implements Initializable {
     private double clamp(double value, double min, double max) {
         return Math.max(min, Math.min(max, value));
     }
+
+    @FXML
+    private void onSendMeasurements() {
+        if (measurementPoints.isEmpty()) {
+            lblInfo.setText(" Nenhuma medição para enviar.");
+            return;
+        }
+
+        try {
+            // Montar JSON com as distâncias e pontos
+            JSONArray pointsArray = new JSONArray();
+            for (Point3D p : measurementPoints) {
+                JSONObject pointJson = new JSONObject();
+                pointJson.put("x", p.getX());
+                pointJson.put("y", p.getY());
+                pointJson.put("z", p.getZ());
+                pointsArray.put(pointJson);
+            }
+
+            JSONObject json = new JSONObject();
+            json.put("totalDistance", calculateTotalDistance());
+            json.put("points", pointsArray);
+
+            // Enviar JSON para a API
+            String apiUrl = "http://localhost:8080/api/medicoes"; // ⚠️ ajuste sua URL
+            sendJsonToApi(apiUrl, json.toString());
+
+            lblInfo.setText("✅ Dados enviados com sucesso!");
+
+        } catch (Exception e) {
+            lblInfo.setText("⚠️ Erro ao enviar dados: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Envia um JSON via POST para uma API REST
+     */
+    private void sendJsonToApi(String apiUrl, String jsonBody) throws Exception {
+        URL url = new URL(apiUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "application/json; utf-8");
+        conn.setDoOutput(true);
+
+        try (OutputStream os = conn.getOutputStream()) {
+            byte[] input = jsonBody.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
+
+        int responseCode = conn.getResponseCode();
+        System.out.println("Resposta da API: " + responseCode);
+        conn.disconnect();
+    }
+
 }
 
