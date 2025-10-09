@@ -5,44 +5,106 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>org.example</groupId>
     <artifactId>Challenge_DASA</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>22</maven.compiler.source>
-        <maven.compiler.target>22</maven.compiler.target>
+        <java.version>22</java.version>
+        <spring.boot.version>3.3.3</spring.boot.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.2</junit.version>
         <mockito.version>5.12.0</mockito.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+
+    <repositories>
+        <repository>
+            <id>oracle</id>
+            <url>https://maven.oracle.com</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+
+
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
             <version>23.4.0.24.05</version>
             <scope>runtime</scope>
         </dependency>
+
+
+
         <dependency>
-            <groupId>org.jmonkeyengine</groupId>
-            <artifactId>jme3-core</artifactId>
-            <version>3.6.1-stable</version>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>22.0.2</version>
         </dependency>
         <dependency>
-            <groupId>org.jmonkeyengine</groupId>
-            <artifactId>jme3-desktop</artifactId>
-            <version>3.6.1-stable</version>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>22.0.2</version>
         </dependency>
+
+
         <dependency>
-            <groupId>org.jmonkeyengine</groupId>
-            <artifactId>jme3-lwjgl3</artifactId>
-            <version>3.6.1-stable</version>
+            <groupId>us.ihmc</groupId>
+            <artifactId>jimFxmlModelImporterJFX</artifactId>
+            <version>0.5</version>
         </dependency>
+
+
         <dependency>
-            <groupId>org.jmonkeyengine</groupId>
-            <artifactId>jme3-plugins</artifactId>
-            <version>3.6.1-stable</version>
+            <groupId>org.interactivemesh</groupId>
+            <artifactId>jimObjModelImporterJFX</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/JFX3DModelImporters/jimObjModelImporterJFX.jar</systemPath>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <version>${spring.boot.version}</version>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.boot.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -56,46 +118,39 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
-
-
-
-        <!-- JavaFX FXML -->
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>22.0.2</version>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>22.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>us.ihmc</groupId>
-            <artifactId>jimFxmlModelImporterJFX</artifactId>
-            <version>0.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.interactivemesh</groupId>
-            <artifactId>jimObjModelImporterJFX</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/JFX3DModelImporters/jimObjModelImporterJFX.jar</systemPath>
-        </dependency>
-
 
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.11.0</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <release>${java.version}</release>
                 </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
 </project>
